@@ -1,5 +1,5 @@
 {
-  "savedAt": "2026-07-12T14:14:44.466Z",
+  "savedAt": "2026-07-12T14:16:38.559Z",
   "rows": [
     {
       "id": "qurtubah",
@@ -121,11 +121,12 @@
       "contact": "Majid AlRobaian (Owner), Dr. Siraj AlHarthi (GM), Mohamed Omar (Acct.)",
       "phone": "0546007009 / 0500452323 / 0552556248",
       "curriculum": "International · K-12 (Boys & Girls)",
-      "status": "Delivered / Done",
+      "status": "Approved – PO collected",
       "value": null,
       "products": "K-12 English, Math, Science.",
       "docs": "—",
-      "notes": "Completed and delivered."
+      "notes": "Completed and delivered.",
+      "updatedAt": "2026-07-12T14:16:37.351Z"
     },
     {
       "id": "maali",
