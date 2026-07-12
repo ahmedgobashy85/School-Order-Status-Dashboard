@@ -1,5 +1,5 @@
 {
-  "savedAt": "2026-07-12T14:16:38.559Z",
+  "savedAt": "2026-07-12T14:16:40.889Z",
   "rows": [
     {
       "id": "qurtubah",
@@ -136,11 +136,12 @@
       "contact": "Adnan AlThubaity (Owner), Mohamed (Acct.)",
       "phone": "0566662670 / 0565204076",
       "curriculum": "American",
-      "status": "Delivered / Done",
+      "status": "Approved – PO collected",
       "value": null,
       "products": "Obelas K1–K3.",
       "docs": "—",
-      "notes": "Completed and delivered."
+      "notes": "Completed and delivered.",
+      "updatedAt": "2026-07-12T14:16:39.688Z"
     },
     {
       "id": "kenz",
