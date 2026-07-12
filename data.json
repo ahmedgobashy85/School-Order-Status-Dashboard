@@ -1,5 +1,5 @@
 {
-  "savedAt": "2026-07-12T14:16:40.889Z",
+  "savedAt": "2026-07-12T14:17:27.080Z",
   "rows": [
     {
       "id": "qurtubah",
@@ -111,7 +111,8 @@
       "value": null,
       "products": "Science K-8 + Alpha Math KG (McGraw Hill / Savvas / Alpha).",
       "docs": "—",
-      "notes": "Order confirmed — awaiting payment."
+      "notes": "Order confirmed — awaiting down payment.",
+      "updatedAt": "2026-07-12T14:17:25.879Z"
     },
     {
       "id": "shrook",
