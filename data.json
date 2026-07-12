@@ -1,5 +1,5 @@
 {
-  "savedAt": "2026-07-12T14:19:51.744Z",
+  "savedAt": "2026-07-12T14:20:14.538Z",
   "rows": [
     {
       "id": "qurtubah",
@@ -97,7 +97,8 @@
       "value": null,
       "products": "IG / Cambridge.",
       "docs": "Booklist sent",
-      "notes": "List sent then canceled. Cambridge curriculum — not a current Savvas/Alpha fit."
+      "notes": "List sent then canceled. Cambridge curriculum — no MOE approval.",
+      "updatedAt": "2026-07-12T14:20:13.336Z"
     },
     {
       "id": "cedar",
