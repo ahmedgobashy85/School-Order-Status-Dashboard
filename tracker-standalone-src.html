@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/vanguard-business-solutions-design-syste-cde2a32c-d57d-4f7e-9a58-01d74b52c63b/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/vanguard-business-solutions-design-syste-cde2a32c-d57d-4f7e-9a58-01d74b52c63b/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/vanguard-business-solutions-design-syste-cde2a32c-d57d-4f7e-9a58-01d74b52c63b/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/vanguard-business-solutions-design-syste-cde2a32c-d57d-4f7e-9a58-01d74b52c63b/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/vanguard-business-solutions-design-syste-cde2a32c-d57d-4f7e-9a58-01d74b52c63b/tokens/effects.css">
+  <link rel="stylesheet" href="_ds/vanguard-business-solutions-design-syste-cde2a32c-d57d-4f7e-9a58-01d74b52c63b/tokens/base.css">
+  <link rel="stylesheet" href="_ds/vanguard-business-solutions-design-syste-cde2a32c-d57d-4f7e-9a58-01d74b52c63b/styles.css">
+  <script src="_ds/vanguard-business-solutions-design-syste-cde2a32c-d57d-4f7e-9a58-01d74b52c63b/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: var(--surface-page, #f7f8fa); }
+    a { color: var(--text-link, #26436b); text-decoration: none; }
+    a:hover { color: var(--text-link-hover, #12233d); text-decoration: underline; }
+  </style>
+</helmet>
+
+<div style="min-height: 100vh; background: var(--surface-page); font-family: var(--font-body, Inter, sans-serif); color: var(--text-primary);">
+
+  <!-- ============ HEADER ============ -->
+  <header style="background: var(--surface-inverse); color: var(--text-inverse);">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 26px 28px 24px;">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px;">
+        <div>
+          <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-gold);">Creative Education · Publishing &amp; Distribution</div>
+          <h1 style="margin: 8px 0 0; font-family: var(--font-display, 'Exo 2', sans-serif); font-size: 26px; font-weight: 700; line-height: 1.2;">School Sales Tracker</h1>
+          <p style="margin: 6px 0 0; font-size: 13px; color: var(--text-inverse-muted);">Key accounts · Academic year 2026–2027 · every edit saves automatically on this device</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 10px;">
+          <div style="background: var(--surface-inverse-sunken); border-radius: var(--radius-lg, 12px); padding: 12px 16px;">
+            <div style="font-family: var(--font-display); font-size: 24px; font-weight: 700;">{{ kSchools }}</div>
+            <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-inverse-muted); margin-top: 3px;">Schools</div>
+          </div>
+          <div style="background: var(--surface-inverse-sunken); border-radius: var(--radius-lg, 12px); padding: 12px 16px;">
+            <div style="font-family: var(--font-display); font-size: 24px; font-weight: 700;">{{ kActive }}</div>
+            <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-inverse-muted); margin-top: 3px;">Open pipeline</div>
+          </div>
+          <div style="background: var(--surface-inverse-sunken); border-radius: var(--radius-lg, 12px); padding: 12px 16px;">
+            <div style="font-family: var(--font-display); font-size: 24px; font-weight: 700;">{{ kWon }}</div>
+            <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-inverse-muted); margin-top: 3px;">Won accounts</div>
+          </div>
+          <div style="background: var(--surface-inverse-sunken); border-radius: var(--radius-lg, 12px); padding: 12px 16px;">
+            <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--gold-400); line-height: 30px;">{{ kValue }}</div>
+            <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-inverse-muted); margin-top: 3px;">Quoted + approved</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 22px 28px 90px;">
+
+    <!-- ============ LIST VIEW ============ -->
+    <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <!-- status filter chips -->
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;">
+          <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="8">
+            <button onClick="{{ ch.toggle }}" style="display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border-radius: var(--radius-pill, 999px); border: {{ ch.border }}; background: {{ ch.bg }}; color: {{ ch.fg }}; font-family: var(--font-body); font-size: 12.5px; font-weight: 600; cursor: pointer; line-height: 1.4;" style-hover="filter: brightness(0.96)">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: currentColor;"></span>
+              {{ ch.label }}
+              <span style="opacity: 0.65; font-weight: 700;">{{ ch.count }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <!-- toolbar -->
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px;">
+          <div style="flex: 1; min-width: 240px;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" value="{{ q }}" on-change="{{ onSearch }}" placeholder="Search school, city, contact, product…" hint-size="100%,38px"></x-import>
+          </div>
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="gold" icon="{{ plusIcon }}" on-click="{{ openAdd }}" hint-size="140px,40px">Add school</x-import>
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="ghost" size="sm" on-click="{{ exportCsv }}" hint-size="100px,32px">Export CSV</x-import>
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="ghost" size="sm" on-click="{{ exportJson }}" hint-size="100px,32px">Backup</x-import>
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="ghost" size="sm" on-click="{{ importClick }}" hint-size="100px,32px">Restore</x-import>
+          <input type="file" accept="application/json" ref="{{ fileRef }}" onChange="{{ onImportFile }}" style="display: none;">
+        </div>
+
+        <!-- table -->
+        <div style="background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-xl, 14px); box-shadow: var(--shadow-sm); overflow: hidden;">
+          <div style="overflow-x: auto;">
+            <div style="min-width: 980px;">
+              <div style="display: grid; grid-template-columns: 2.3fr 1.7fr 1.5fr 1fr 1.9fr 44px; gap: 14px; padding: 12px 18px; background: var(--surface-sunken); border-bottom: 1px solid var(--border-default); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted);">
+                <div onClick="{{ sortByName }}" style="cursor: pointer;">School {{ sortIndName }}</div>
+                <div>Contacts</div>
+                <div onClick="{{ sortByStatus }}" style="cursor: pointer;">Status {{ sortIndStatus }}</div>
+                <div onClick="{{ sortByValue }}" style="cursor: pointer; text-align: right;">Value (SAR) {{ sortIndValue }}</div>
+                <div>Latest order</div>
+                <div></div>
+              </div>
+              <sc-for list="{{ rows }}" as="r" hint-placeholder-count="6">
+                <div style="display: grid; grid-template-columns: 2.3fr 1.7fr 1.5fr 1fr 1.9fr 44px; gap: 14px; padding: {{ rowPad }} 18px; border-bottom: 1px solid var(--border-subtle); align-items: center;" style-hover="background: var(--navy-50)">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                      <span onClick="{{ r.open }}" style="font-weight: 700; font-size: 14px; color: var(--navy-800); cursor: pointer; line-height: 1.35;" style-hover="color: var(--navy-600); text-decoration: underline">{{ r.name }}</span>
+                      <sc-if value="{{ r.city }}" hint-placeholder-val="{{ false }}">
+                        <span style="background: var(--navy-100); color: var(--navy-800); border-radius: var(--radius-sm, 4px); padding: 1px 7px; font-size: 10.5px; font-weight: 700;">{{ r.city }}</span>
+                      </sc-if>
+                    </div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">{{ r.sub }}</div>
+                  </div>
+                  <div style="font-size: 12.5px; line-height: 1.55; color: var(--text-secondary);">
+                    <div style="font-weight: 600; color: var(--text-primary);">{{ r.contactName }}</div>
+                    <div>{{ r.contactPhone }}</div>
+                  </div>
+                  <div>
+                    <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Select" options="{{ statusOptions }}" value="{{ r.status }}" on-change="{{ r.setStatus }}" hint-size="100%,38px"></x-import>
+                    <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">{{ r.updated }}</div>
+                  </div>
+                  <div style="text-align: right; font-weight: 700; font-size: 13.5px; color: var(--navy-900);">{{ r.valueFmt }}</div>
+                  <div style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.5;">{{ r.latestOrder }}</div>
+                  <button onClick="{{ r.open }}" title="Open details" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-default); border-radius: var(--radius-md, 8px); background: var(--surface-card); color: var(--text-secondary); cursor: pointer;" style-hover="background: var(--gray-100)">
+                    <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Icon" name="chevron-right" size="{{ 15 }}" hint-size="15px,15px"></x-import>
+                  </button>
+                </div>
+              </sc-for>
+              <sc-if value="{{ noRows }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 40px; text-align: center; color: var(--text-muted); font-size: 13.5px;">No schools match — clear the search or filter, or add a new school.</div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 14px; line-height: 1.6;">{{ resultNote }} · Click a school's name for contact details, location and order history. Change a status right from the list. Use <b>Backup</b> / <b>Restore</b> to move your data between devices.</p>
+      </div>
+    </sc-if>
+
+    <!-- ============ DETAIL VIEW ============ -->
+    <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="ghost" size="sm" icon="{{ backIcon }}" on-click="{{ back }}" hint-size="120px,32px">All schools</x-import>
+          <div style="display: flex; gap: 8px;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="secondary" size="sm" icon="{{ editIcon }}" on-click="{{ openEdit }}" hint-size="110px,32px">Edit school</x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="danger" size="sm" icon="{{ trashIcon }}" on-click="{{ askDelete }}" hint-size="90px,32px">Delete</x-import>
+          </div>
+        </div>
+
+        <div style="background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-xl, 14px); box-shadow: var(--shadow-sm); padding: 22px 24px; margin-bottom: 16px;">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px;">
+            <h2 style="margin: 0; font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--navy-900);">{{ sel.name }}</h2>
+            <span style="font-size: 15px; color: var(--text-muted);">{{ sel.nameAr }}</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Badge" tone="{{ sel.tone }}" dot="{{ true }}" hint-size="auto,24px">{{ sel.status }}</x-import>
+            <sc-for list="{{ sel.metaTags }}" as="t" hint-placeholder-count="3">
+              <span style="background: var(--gray-150); color: var(--gray-700); border-radius: var(--radius-pill, 999px); padding: 3px 10px; font-size: 12px; font-weight: 600;">{{ t }}</span>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 26px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border-subtle);">
+            <div>
+              <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted);">Account value</div>
+              <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--navy-900); margin-top: 2px;">{{ sel.valueFmt }}</div>
+            </div>
+            <div>
+              <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted);">Orders on file</div>
+              <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--navy-900); margin-top: 2px;">{{ sel.orderCount }}</div>
+            </div>
+            <div style="flex: 1; min-width: 220px;">
+              <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted);">Current products / order</div>
+              <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px; line-height: 1.55;">{{ sel.products }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 16px; align-items: start; margin-bottom: 16px;">
+          <!-- contacts -->
+          <div style="background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-xl, 14px); box-shadow: var(--shadow-sm); padding: 20px 22px;">
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-700); margin-bottom: 12px;">Contacts</div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <sc-for list="{{ sel.contactsV }}" as="c" hint-placeholder-count="2">
+                <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg, 12px); padding: 12px 14px;">
+                  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <span style="font-weight: 700; font-size: 14px;">{{ c.name }}</span>
+                    <sc-if value="{{ c.decisionMaker }}" hint-placeholder-val="{{ false }}">
+                      <span style="background: var(--gold-100); color: var(--gold-800); border-radius: var(--radius-pill, 999px); padding: 2px 8px; font-size: 10.5px; font-weight: 700;">Decision maker</span>
+                    </sc-if>
+                  </div>
+                  <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">{{ c.role }}</div>
+                  <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 13px;">
+                    <sc-if value="{{ c.mobile }}" hint-placeholder-val="{{ false }}">
+                      <div style="display: flex; gap: 8px; align-items: center;"><span style="color: var(--text-muted); font-size: 11.5px; width: 62px;">Mobile</span><a href="{{ c.telHref }}" style="font-weight: 600;">{{ c.mobile }}</a></div>
+                    </sc-if>
+                    <sc-if value="{{ c.email }}" hint-placeholder-val="{{ false }}">
+                      <div style="display: flex; gap: 8px; align-items: center;"><span style="color: var(--text-muted); font-size: 11.5px; width: 62px;">Email</span><a href="{{ c.mailHref }}" style="font-weight: 600; word-break: break-all;">{{ c.email }}</a></div>
+                    </sc-if>
+                    <sc-if value="{{ c.whatsapp }}" hint-placeholder-val="{{ false }}">
+                      <div style="display: flex; gap: 8px; align-items: center;"><span style="color: var(--text-muted); font-size: 11.5px; width: 62px;">WhatsApp</span><a href="{{ c.waHref }}" target="_blank" style="font-weight: 600;">{{ c.whatsapp }}</a></div>
+                    </sc-if>
+                  </div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ sel.noContacts }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">No contacts on file yet — use <b>Edit school</b> to add names, phone numbers and emails.</div>
+              </sc-if>
+            </div>
+          </div>
+
+          <!-- school info -->
+          <div style="background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-xl, 14px); box-shadow: var(--shadow-sm); padding: 20px 22px;">
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-700); margin-bottom: 12px;">Location &amp; school info</div>
+            <div style="display: flex; flex-direction: column; gap: 9px; font-size: 13px;">
+              <sc-for list="{{ sel.infoRows }}" as="ir" hint-placeholder-count="6">
+                <div style="display: flex; gap: 10px;">
+                  <span style="color: var(--text-muted); font-size: 11.5px; width: 92px; flex-shrink: 0; padding-top: 1px;">{{ ir.label }}</span>
+                  <sc-if value="{{ ir.href }}" hint-placeholder-val="{{ false }}">
+                    <a href="{{ ir.href }}" target="_blank" style="font-weight: 600; word-break: break-all;">{{ ir.value }}</a>
+                  </sc-if>
+                  <sc-if value="{{ ir.plain }}" hint-placeholder-val="{{ true }}">
+                    <span style="color: var(--text-primary); line-height: 1.5;">{{ ir.value }}</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- sales panel -->
+          <div style="background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-xl, 14px); box-shadow: var(--shadow-sm); padding: 20px 22px;">
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-700); margin-bottom: 12px;">Sales status</div>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Select" label="Order status" options="{{ statusOptions }}" value="{{ sel.status }}" on-change="{{ setSelStatus }}" hint-size="100%,60px"></x-import>
+            <div style="margin-top: 12px;">
+              <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Account value (SAR)" value="{{ sel.valueRaw }}" on-change="{{ setSelValue }}" on-blur="{{ persistBlur }}" placeholder="e.g. 250000" hint-size="100%,60px"></x-import>
+            </div>
+            <div style="margin-top: 12px;">
+              <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Textarea" label="Notes" rows="{{ 5 }}" value="{{ sel.notes }}" on-change="{{ setSelNotes }}" on-blur="{{ persistBlur }}" placeholder="Follow-ups, payment reminders, next steps…" hint-size="100%,140px"></x-import>
+            </div>
+            <sc-if value="{{ sel.docs }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top: 12px;">
+                <div style="font-size: 11.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">Documents on file</div>
+                <div style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.6;">{{ sel.docs }}</div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <!-- order history -->
+        <div style="background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-xl, 14px); box-shadow: var(--shadow-sm); padding: 20px 22px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px;">
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-700);">Order history</div>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="gold" size="sm" icon="{{ plusIcon }}" on-click="{{ openAddOrder }}" hint-size="110px,32px">Add order</x-import>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <sc-for list="{{ sel.ordersV }}" as="o" hint-placeholder-count="1">
+              <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg, 12px); padding: 14px 16px; display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap;">
+                <div style="min-width: 86px;">
+                  <div style="font-size: 12px; font-weight: 700; color: var(--navy-800);">{{ o.date }}</div>
+                  <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">{{ o.ref }}</div>
+                </div>
+                <div style="flex: 1; min-width: 240px;">
+                  <div style="font-weight: 600; font-size: 14px; line-height: 1.4;">{{ o.title }}</div>
+                  <div style="font-size: 12.5px; color: var(--text-secondary); margin-top: 3px; line-height: 1.55;">{{ o.detail }}</div>
+                  <sc-if value="{{ o.docs }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 5px;">Docs: {{ o.docs }}</div>
+                  </sc-if>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+                  <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Badge" tone="{{ o.tone }}" dot="{{ true }}" hint-size="auto,24px">{{ o.status }}</x-import>
+                  <div style="font-weight: 700; font-size: 13.5px; color: var(--navy-900);">{{ o.valueFmt }}</div>
+                  <div style="display: flex; gap: 6px;">
+                    <button onClick="{{ o.edit }}" title="Edit order" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-default); border-radius: var(--radius-md, 8px); background: var(--surface-card); color: var(--text-secondary); cursor: pointer;" style-hover="background: var(--gray-100)">
+                      <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Icon" name="edit" size="{{ 13 }}" hint-size="13px,13px"></x-import>
+                    </button>
+                    <button onClick="{{ o.del }}" title="Delete order" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-default); border-radius: var(--radius-md, 8px); background: var(--surface-card); color: var(--danger-500); cursor: pointer;" style-hover="background: var(--danger-100)">
+                      <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Icon" name="trash-2" size="{{ 13 }}" hint-size="13px,13px"></x-import>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ sel.noOrders }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size: 13px; color: var(--text-muted);">No orders recorded yet — click <b>Add order</b> to log a quotation, PO or delivery.</div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ FORM VIEW (add / edit school) ============ -->
+    <sc-if value="{{ isForm }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width: 860px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="ghost" size="sm" icon="{{ backIcon }}" on-click="{{ cancelForm }}" hint-size="90px,32px">Cancel</x-import>
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="gold" on-click="{{ saveSchool }}" hint-size="130px,40px">{{ formSaveLabel }}</x-import>
+        </div>
+        <div style="background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-xl, 14px); box-shadow: var(--shadow-sm); padding: 24px;">
+          <h2 style="margin: 0 0 18px; font-family: var(--font-display); font-size: 21px; font-weight: 700; color: var(--navy-900);">{{ formTitle }}</h2>
+
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-700); margin-bottom: 12px;">Basic information</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-bottom: 22px;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="School name *" value="{{ form.name }}" data-field="name" on-change="{{ onFormInput }}" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="School name (Arabic)" value="{{ form.nameAr }}" data-field="nameAr" on-change="{{ onFormInput }}" dir="rtl" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="School code" value="{{ form.code }}" data-field="code" on-change="{{ onFormInput }}" placeholder="e.g. QIS-JD" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="City" value="{{ form.city }}" data-field="city" on-change="{{ onFormInput }}" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="District" value="{{ form.district }}" data-field="district" on-change="{{ onFormInput }}" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Select" label="Region" options="{{ regionOptions }}" value="{{ form.region }}" data-field="region" on-change="{{ onFormInput }}" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Curriculum" value="{{ form.curriculum }}" data-field="curriculum" on-change="{{ onFormInput }}" placeholder="e.g. American · K-12" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Grade levels" value="{{ form.grades }}" data-field="grades" on-change="{{ onFormInput }}" placeholder="e.g. K-8" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Tuition range" value="{{ form.tuition }}" data-field="tuition" on-change="{{ onFormInput }}" placeholder="e.g. From 18,000" hint-size="100%,60px"></x-import>
+          </div>
+
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-700); margin-bottom: 12px;">Location &amp; reach</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-bottom: 22px;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Main phone" value="{{ form.phone }}" data-field="phone" on-change="{{ onFormInput }}" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="WhatsApp" value="{{ form.whatsapp }}" data-field="whatsapp" on-change="{{ onFormInput }}" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Email" value="{{ form.email }}" data-field="email" on-change="{{ onFormInput }}" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Website" value="{{ form.website }}" data-field="website" on-change="{{ onFormInput }}" placeholder="https://…" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Address" value="{{ form.address }}" data-field="address" on-change="{{ onFormInput }}" placeholder="Building, street, district, city, postal code" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Google Maps link" value="{{ form.mapsUrl }}" data-field="mapsUrl" on-change="{{ onFormInput }}" placeholder="https://maps.app.goo.gl/…" hint-size="100%,60px"></x-import>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-700);">Contacts</div>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="secondary" size="sm" icon="{{ plusIcon }}" on-click="{{ addFormContact }}" hint-size="120px,32px">Add contact</x-import>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px;">
+            <sc-for list="{{ formContacts }}" as="fc" hint-placeholder-count="1">
+              <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg, 12px); padding: 14px; background: var(--surface-sunken);">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
+                  <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Name" size="sm" value="{{ fc.name }}" data-field="name" on-change="{{ fc.onField }}" hint-size="100%,54px"></x-import>
+                  <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Select" label="Role" options="{{ roleOptions }}" value="{{ fc.role }}" data-field="role" on-change="{{ fc.onField }}" hint-size="100%,54px"></x-import>
+                  <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Mobile" size="sm" value="{{ fc.mobile }}" data-field="mobile" on-change="{{ fc.onField }}" hint-size="100%,54px"></x-import>
+                  <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Email" size="sm" value="{{ fc.email }}" data-field="email" on-change="{{ fc.onField }}" hint-size="100%,54px"></x-import>
+                  <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="WhatsApp" size="sm" value="{{ fc.whatsapp }}" data-field="whatsapp" on-change="{{ fc.onField }}" hint-size="100%,54px"></x-import>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px;">
+                  <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Checkbox" label="Decision maker" checked="{{ fc.decisionMaker }}" on-change="{{ fc.toggleDm }}" hint-size="140px,20px"></x-import>
+                  <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="ghost" size="sm" on-click="{{ fc.remove }}" hint-size="90px,32px">Remove</x-import>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-700); margin-bottom: 12px;">Sales</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-bottom: 14px;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Select" label="Order status" options="{{ statusOptions }}" value="{{ form.status }}" data-field="status" on-change="{{ onFormInput }}" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Account value (SAR)" value="{{ form.value }}" data-field="value" on-change="{{ onFormInput }}" placeholder="e.g. 250000" hint-size="100%,60px"></x-import>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr; gap: 14px;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Textarea" label="Products / order summary" rows="{{ 2 }}" value="{{ form.products }}" data-field="products" on-change="{{ onFormInput }}" hint-size="100%,90px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Textarea" label="Documents on file" rows="{{ 2 }}" value="{{ form.docs }}" data-field="docs" on-change="{{ onFormInput }}" hint-size="100%,90px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Textarea" label="Notes" rows="{{ 3 }}" value="{{ form.notes }}" data-field="notes" on-change="{{ onFormInput }}" hint-size="100%,110px"></x-import>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="secondary" on-click="{{ cancelForm }}" hint-size="90px,40px">Cancel</x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="gold" on-click="{{ saveSchool }}" hint-size="130px,40px">{{ formSaveLabel }}</x-import>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </main>
+
+  <!-- ============ ORDER MODAL ============ -->
+  <sc-if value="{{ orderFormOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 60;">
+      <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Dialog" open="{{ true }}" title="{{ orderFormTitle }}" on-close="{{ closeOrderForm }}" width="{{ 620 }}" hint-size="620px,400px">
+        <div style="max-height: 62vh; overflow: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 2px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Date" value="{{ oform.date }}" data-field="date" on-change="{{ onOrderInput }}" placeholder="e.g. 2026-07-12" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Reference (quotation / PO no.)" value="{{ oform.ref }}" data-field="ref" on-change="{{ onOrderInput }}" placeholder="e.g. AFR000058" hint-size="100%,60px"></x-import>
+          </div>
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Order title *" value="{{ oform.title }}" data-field="title" on-change="{{ onOrderInput }}" placeholder="e.g. K-8 Savvas &amp; Alpha booklist" hint-size="100%,60px"></x-import>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Items" value="{{ oform.items }}" data-field="items" on-change="{{ onOrderInput }}" placeholder="e.g. 942 titles" hint-size="100%,60px"></x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Value (SAR)" value="{{ oform.value }}" data-field="value" on-change="{{ onOrderInput }}" placeholder="e.g. 269256.91" hint-size="100%,60px"></x-import>
+          </div>
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Select" label="Status" options="{{ statusOptions }}" value="{{ oform.status }}" data-field="status" on-change="{{ onOrderInput }}" hint-size="100%,60px"></x-import>
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Input" label="Documents" value="{{ oform.docs }}" data-field="docs" on-change="{{ onOrderInput }}" placeholder="Booklists, POs, payment plans…" hint-size="100%,60px"></x-import>
+          <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Textarea" label="Notes" rows="{{ 2 }}" value="{{ oform.notes }}" data-field="notes" on-change="{{ onOrderInput }}" hint-size="100%,90px"></x-import>
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 4px;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="secondary" on-click="{{ closeOrderForm }}" hint-size="90px,40px">Cancel</x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="gold" on-click="{{ saveOrder }}" hint-size="120px,40px">Save order</x-import>
+          </div>
+        </div>
+      </x-import>
+    </div>
+  </sc-if>
+
+  <!-- ============ DELETE CONFIRM ============ -->
+  <sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 70;">
+      <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Dialog" open="{{ true }}" title="Delete school" on-close="{{ cancelDelete }}" width="{{ 440 }}" hint-size="440px,220px">
+        <div>
+          <p style="margin: 0 0 16px; line-height: 1.6;">Delete <b>{{ confirmName }}</b>? This removes its contacts and order history from the tracker. You can restore it later from a JSON backup.</p>
+          <div style="display: flex; justify-content: flex-end; gap: 10px;">
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="secondary" on-click="{{ cancelDelete }}" hint-size="90px,40px">Cancel</x-import>
+            <x-import component-from-global-scope="VanguardBusinessSolutionsDesignSystem_cde2a3.Button" variant="danger" on-click="{{ confirmDelete }}" hint-size="130px,40px">Delete school</x-import>
+          </div>
+        </div>
+      </x-import>
+    </div>
+  </sc-if>
+
+  <!-- toast -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; bottom: 22px; right: 22px; z-index: 90; background: var(--navy-900); color: #fff; padding: 10px 18px; border-radius: var(--radius-lg, 12px); font-family: var(--font-body); font-size: 13px; font-weight: 600; box-shadow: var(--shadow-lg);">{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;hideValues&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Display&quot;, &quot;description&quot;: &quot;Hide all SAR amounts (for screen sharing)&quot; },
+  &quot;compact&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Display&quot;, &quot;description&quot;: &quot;Tighter table rows&quot; }
+}">
+class Component extends DCLogic {
+  state = {
+    schools: [],
+    loaded: false,
+    view: 'list',
+    selId: null,
+    q: '',
+    filter: null,
+    sortKey: 'value',
+    sortDir: -1,
+    form: null,
+    formMode: 'add',
+    oform: null,
+    oformMode: 'add',
+    confirmId: null,
+    toast: ''
+  };
+
+  LS_KEY = 'ce_school_sales_crm_v1';
+
+  STATUSES = [
+    { k: 'Delivered / Done', tone: 'success', group: 'won' },
+    { k: 'Approved – PO collected', tone: 'success', group: 'won' },
+    { k: 'Under approval', tone: 'info', group: 'active' },
+    { k: 'Confirmed – pending payment', tone: 'warning', group: 'active' },
+    { k: 'Pending late payment', tone: 'danger', group: 'active' },
+    { k: 'Quotation sent', tone: 'navy', group: 'active' },
+    { k: 'Demo sent', tone: 'navy', group: 'active' },
+    { k: 'Booklist received', tone: 'info', group: 'active' },
+    { k: 'Pending follow-up', tone: 'warning', group: 'active' },
+    { k: 'Lead / new', tone: 'neutral', group: 'active' },
+    { k: 'Canceled / Declined', tone: 'danger', group: 'lost' }
+  ];
+
+  CHIP_COLORS = {
+    success: ['var(--feedback-success-bg)', 'var(--feedback-success-fg)'],
+    warning: ['var(--feedback-warning-bg)', 'var(--feedback-warning-fg)'],
+    danger: ['var(--feedback-danger-bg)', 'var(--feedback-danger-fg)'],
+    info: ['var(--feedback-info-bg)', 'var(--feedback-info-fg)'],
+    navy: ['var(--navy-100)', 'var(--navy-800)'],
+    gold: ['var(--gold-100)', 'var(--gold-800)'],
+    neutral: ['var(--gray-150)', 'var(--gray-700)']
+  };
+
+  componentDidMount() {
+    import('./schools-data.js').then((m) => {
+      let schools = null;
+      try {
+        const saved = JSON.parse(localStorage.getItem(this.LS_KEY));
+        if (saved && Array.isArray(saved.schools) && saved.schools.length) schools = saved.schools;
+      } catch (e) { /* ignore */ }
+      if (!schools) schools = m.SEED.map((s) => ({ ...s }));
+      this.setState({ schools, loaded: true });
+    });
+  }
+
+  persist(schools, msg) {
+    localStorage.setItem(this.LS_KEY, JSON.stringify({ savedAt: new Date().toISOString(), schools }));
+    clearTimeout(this._toastT);
+    this.setState({ toast: msg || 'Saved' });
+    this._toastT = setTimeout(() => this.setState({ toast: '' }), 1400);
+  }
+
+  update(id, patch, msg) {
+    const schools = this.state.schools.map((s) => (s.id === id ? { ...s, ...patch, updatedAt: new Date().toISOString() } : s));
+    this.setState({ schools });
+    this.persist(schools, msg);
+  }
+
+  statusInfo(k) {
+    return this.STATUSES.find((s) => s.k === k) || { k, tone: 'neutral', group: 'active' };
+  }
+
+  fmt(n) {
+    if (this.props.hideValues) return '•••';
+    if (n === null || n === undefined || n === '' || isNaN(Number(n))) return '—';
+    return 'SAR ' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
+  }
+
+  emptyForm() {
+    return {
+      name: '', nameAr: '', code: '', city: '', district: '', region: '', curriculum: '', grades: '',
+      tuition: '', phone: '', whatsapp: '', email: '', website: '', address: '', mapsUrl: '',
+      status: 'Lead / new', value: '', products: '', docs: '', notes: '',
+      contacts: []
+    };
+  }
+
+  slug(name) {
+    const base = (name || 'school').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 24);
+    return base + '-' + Date.now().toString(36);
+  }
+
+  icon(name, size) {
+    const NS = window.VanguardBusinessSolutionsDesignSystem_cde2a3;
+    if (!NS || !NS.Icon) return null;
+    return React.createElement(NS.Icon, { name, size: size || 15 });
+  }
+
+  renderVals() {
+    const st = this.state;
+    const schools = st.schools || [];
+    const self = this;
+
+    /* ---- KPIs ---- */
+    const kActive = schools.filter((s) => this.statusInfo(s.status).group === 'active').length;
+    const kWon = schools.filter((s) => this.statusInfo(s.status).group === 'won').length;
+    const totalValue = schools.reduce((a, s) => a + (Number(s.value) || 0), 0);
+
+    /* ---- chips ---- */
+    const counts = {};
+    schools.forEach((s) => { counts[s.status] = (counts[s.status] || 0) + 1; });
+    const chips = this.STATUSES.map((s) => {
+      const active = st.filter === s.k;
+      const [bg, fg] = this.CHIP_COLORS[s.tone];
+      return {
+        label: s.k,
+        count: counts[s.k] || 0,
+        bg: active ? fg : bg,
+        fg: active ? '#ffffff' : fg,
+        border: active ? '1px solid transparent' : '1px solid transparent',
+        toggle: () => self.setState({ filter: active ? null : s.k })
+      };
+    });
+
+    /* ---- list rows ---- */
+    let rows = schools.slice();
+    if (st.filter) rows = rows.filter((r) => r.status === st.filter);
+    if (st.q) {
+      const t = st.q.toLowerCase();
+      rows = rows.filter((r) => {
+        const contactStr = (r.contacts || []).map((c) => c.name + ' ' + c.mobile + ' ' + c.email).join(' ');
+        return [r.name, r.nameAr, r.city, r.district, r.curriculum, r.products, r.notes, r.status, contactStr].join(' ').toLowerCase().includes(t);
+      });
+    }
+    const key = st.sortKey, dir = st.sortDir;
+    rows.sort((a, b) => {
+      if (key === 'value') { return ((Number(a.value) || -1) - (Number(b.value) || -1)) * dir; }
+      const x = String(a[key] || '').toLowerCase(), y = String(b[key] || '').toLowerCase();
+      return x < y ? -dir : x > y ? dir : 0;
+    });
+
+    const rowsV = rows.map((r) => {
+      const primary = (r.contacts || [])[0];
+      const lastOrder = (r.orders || [])[(r.orders || []).length - 1];
+      const subBits = [r.curriculum, r.grades, r.district].filter(Boolean);
+      return {
+        id: r.id,
+        name: r.name,
+        city: r.city || '',
+        sub: subBits.join(' · ') || '—',
+        contactName: primary ? (primary.name + (primary.role ? ' · ' + primary.role : '')) : '—',
+        contactPhone: primary && primary.mobile ? primary.mobile : (r.phone || ''),
+        status: r.status,
+        updated: r.updatedAt ? 'Updated ' + new Date(r.updatedAt).toLocaleDateString() : '',
+        valueFmt: this.fmt(r.value),
+        latestOrder: lastOrder ? (lastOrder.title + (lastOrder.items ? ' — ' + lastOrder.items : '')) : '—',
+        open: () => self.setState({ view: 'detail', selId: r.id }),
+        setStatus: (e) => self.update(r.id, { status: e.target.value }, 'Status updated')
+      };
+    });
+
+    /* ---- detail ---- */
+    const s = schools.find((x) => x.id === st.selId);
+    let sel = null;
+    if (s) {
+      const infoRows = [];
+      const push = (label, value, href) => { if (value) infoRows.push({ label, value, href: href || '', plain: !href }); };
+      push('Website', s.website ? s.website.replace(/^https?:\/\//, '') : '', s.website);
+      push('Main phone', s.phone);
+      push('Email', s.email, s.email ? 'mailto:' + s.email : '');
+      push('WhatsApp', s.whatsapp, s.whatsapp ? 'https://wa.me/966' + String(s.whatsapp).replace(/\D/g, '').replace(/^0/, '') : '');
+      push('Address', s.address);
+      push('Map', s.mapsUrl ? 'Open in Google Maps' : '', s.mapsUrl);
+      push('Region', s.region);
+      push('Type', s.schoolType);
+      push('Genders', s.genders);
+      push('Grades', [s.gradeStages, s.grades].filter(Boolean).join(' · '));
+      push('Tuition', s.tuition);
+      if (!infoRows.length) infoRows.push({ label: 'Info', value: 'No details on file — use Edit school to add them.', href: '', plain: true });
+
+      const contactsV = (s.contacts || []).map((c) => ({
+        ...c,
+        role: c.role || '—',
+        telHref: 'tel:' + String(c.mobile || '').replace(/[^\d+]/g, ''),
+        mailHref: 'mailto:' + (c.email || ''),
+        waHref: 'https://wa.me/966' + String(c.whatsapp || '').replace(/\D/g, '').replace(/^0/, '')
+      }));
+
+      const ordersV = (s.orders || []).slice().reverse().map((o) => ({
+        ...o,
+        date: o.date || '—',
+        ref: o.ref || '',
+        detail: [o.items, o.notes].filter(Boolean).join(' · '),
+        tone: this.statusInfo(o.status).tone,
+        valueFmt: o.value !== null && o.value !== undefined && o.value !== '' ? this.fmt(o.value) : '',
+        edit: () => self.setState({ oform: { ...o, value: o.value === null || o.value === undefined ? '' : String(o.value) }, oformMode: 'edit' }),
+        del: () => {
+          const orders = (s.orders || []).filter((x) => x.id !== o.id);
+          self.update(s.id, { orders }, 'Order deleted');
+        }
+      }));
+
+      sel = {
+        name: s.name,
+        nameAr: s.nameAr || '',
+        status: s.status,
+        tone: this.statusInfo(s.status).tone,
+        metaTags: [
+          [s.city, s.district].filter(Boolean).join(' · '),
+          s.curriculum, s.grades ? 'Grades ' + s.grades : '', s.code
+        ].filter(Boolean),
+        valueFmt: this.fmt(s.value),
+        valueRaw: s.value === null || s.value === undefined ? '' : String(s.value),
+        orderCount: String((s.orders || []).length),
+        products: s.products || '—',
+        docs: s.docs || '',
+        notes: s.notes || '',
+        contactsV,
+        noContacts: contactsV.length === 0,
+        infoRows,
+        ordersV,
+        noOrders: ordersV.length === 0
+      };
+    }
+
+    /* ---- form contacts ---- */
+    const form = st.form;
+    const formContacts = form ? form.contacts.map((c, i) => ({
+      ...c,
+      onField: (e) => {
+        const f = e.target.dataset.field;
+        const contacts = form.contacts.map((x, j) => (j === i ? { ...x, [f]: e.target.value } : x));
+        self.setState({ form: { ...form, contacts } });
+      },
+      toggleDm: () => {
+        const contacts = form.contacts.map((x, j) => (j === i ? { ...x, decisionMaker: !x.decisionMaker } : x));
+        self.setState({ form: { ...form, contacts } });
+      },
+      remove: () => {
+        const contacts = form.contacts.filter((x, j) => j !== i);
+        self.setState({ form: { ...form, contacts } });
+      }
+    })) : [];
+
+    const arrow = (k) => (st.sortKey === k ? (st.sortDir === 1 ? '↑' : '↓') : '');
+
+    return {
+      /* header */
+      kSchools: String(schools.length),
+      kActive: String(kActive),
+      kWon: String(kWon),
+      kValue: this.fmt(totalValue),
+
+      /* view flags */
+      isList: st.view === 'list',
+      isDetail: st.view === 'detail' && !!sel,
+      isForm: st.view === 'form' && !!form,
+
+      /* list */
+      chips,
+      rows: rowsV,
+      noRows: st.loaded && rowsV.length === 0,
+      resultNote: rowsV.length + ' of ' + schools.length + ' schools shown',
+      rowPad: this.props.compact ? '8px' : '13px',
+      q: st.q,
+      onSearch: (e) => self.setState({ q: e.target.value }),
+      statusOptions: this.STATUSES.map((x) => x.k),
+      sortByName: () => self.toggleSort('name'),
+      sortByStatus: () => self.toggleSort('status'),
+      sortByValue: () => self.toggleSort('value'),
+      sortIndName: arrow('name'),
+      sortIndStatus: arrow('status'),
+      sortIndValue: arrow('value'),
+
+      /* icons */
+      plusIcon: this.icon('plus', 15),
+      backIcon: this.icon('chevron-left', 15),
+      editIcon: this.icon('edit', 14),
+      trashIcon: this.icon('trash-2', 14),
+
+      /* detail */
+      sel: sel || {},
+      back: () => self.setState({ view: 'list', selId: null }),
+      setSelStatus: (e) => self.update(st.selId, { status: e.target.value }, 'Status updated'),
+      setSelValue: (e) => {
+        const v = e.target.value;
+        const schools2 = st.schools.map((x) => (x.id === st.selId ? { ...x, value: v === '' ? null : parseFloat(v) || 0 } : x));
+        self.setState({ schools: schools2 });
+      },
+      setSelNotes: (e) => {
+        const v = e.target.value;
+        const schools2 = st.schools.map((x) => (x.id === st.selId ? { ...x, notes: v } : x));
+        self.setState({ schools: schools2 });
+      },
+      persistBlur: () => self.persist(st.schools, 'Saved'),
+
+      /* school form */
+      form: form || {},
+      formContacts,
+      formTitle: st.formMode === 'add' ? 'Add a new school' : 'Edit ' + (form ? form.name : ''),
+      formSaveLabel: st.formMode === 'add' ? 'Add school' : 'Save changes',
+      regionOptions: ['Makkah', 'Riyadh', 'Eastern Province', 'Madinah', 'Qassim', 'Asir', 'Taif', 'Tabuk', 'Hail', 'Jazan', 'Najran', 'Al Jouf', 'Northern Borders', 'Al Baha'],
+      roleOptions: ['Owner', 'General Manager', 'Principal', 'Vice Principal', 'Academic Director', 'Academic Coordinator', 'English Coordinator', 'Registrar', 'Procurement', 'Finance', 'Accounting', 'Library', 'Marketing', 'Other'],
+      openAdd: () => self.setState({ view: 'form', formMode: 'add', form: self.emptyForm() }),
+      openEdit: () => {
+        if (!s) return;
+        self.setState({
+          view: 'form', formMode: 'edit',
+          form: { ...self.emptyForm(), ...s, value: s.value === null || s.value === undefined ? '' : String(s.value), contacts: (s.contacts || []).map((c) => ({ ...c })) }
+        });
+      },
+      cancelForm: () => self.setState({ view: st.formMode === 'edit' ? 'detail' : 'list', form: null }),
+      addFormContact: () => self.setState({ form: { ...form, contacts: form.contacts.concat([{ name: '', role: '', mobile: '', email: '', whatsapp: '', decisionMaker: false, primary: false, notes: '' }]) } }),
+      onFormInput: (e) => {
+        const f = e.target.dataset.field;
+        self.setState({ form: { ...form, [f]: e.target.value } });
+      },
+      saveSchool: () => {
+        if (!form || !form.name.trim()) { self.setState({ toast: 'School name is required' }); clearTimeout(self._toastT); self._toastT = setTimeout(() => self.setState({ toast: '' }), 1600); return; }
+        const clean = { ...form, name: form.name.trim(), value: form.value === '' ? null : parseFloat(form.value) || 0, contacts: form.contacts.filter((c) => c.name.trim()) };
+        let schools2, selId = st.selId;
+        if (st.formMode === 'add') {
+          const id = self.slug(clean.name);
+          schools2 = st.schools.concat([{ ...clean, id, orders: [], updatedAt: new Date().toISOString() }]);
+          selId = id;
+        } else {
+          schools2 = st.schools.map((x) => (x.id === st.selId ? { ...x, ...clean, updatedAt: new Date().toISOString() } : x));
+        }
+        self.setState({ schools: schools2, view: 'detail', selId, form: null });
+        self.persist(schools2, st.formMode === 'add' ? 'School added' : 'School updated');
+      },
+
+      /* delete */
+      confirmOpen: !!st.confirmId,
+      confirmName: (schools.find((x) => x.id === st.confirmId) || {}).name || '',
+      askDelete: () => self.setState({ confirmId: st.selId }),
+      cancelDelete: () => self.setState({ confirmId: null }),
+      confirmDelete: () => {
+        const schools2 = st.schools.filter((x) => x.id !== st.confirmId);
+        self.setState({ schools: schools2, confirmId: null, view: 'list', selId: null });
+        self.persist(schools2, 'School deleted');
+      },
+
+      /* order form */
+      orderFormOpen: !!st.oform,
+      orderFormTitle: st.oformMode === 'add' ? 'Add order' : 'Edit order',
+      oform: st.oform || {},
+      onOrderInput: (e) => {
+        const f = e.target.dataset.field;
+        self.setState({ oform: { ...st.oform, [f]: e.target.value } });
+      },
+      openAddOrder: () => self.setState({ oform: { id: '', date: new Date().toISOString().slice(0, 10), ref: '', title: '', items: '', value: '', status: s ? s.status : 'Quotation sent', docs: '', notes: '' }, oformMode: 'add' }),
+      closeOrderForm: () => self.setState({ oform: null }),
+      saveOrder: () => {
+        const o = st.oform;
+        if (!o || !o.title.trim() || !s) { return; }
+        const cleanO = { ...o, title: o.title.trim(), value: o.value === '' ? null : parseFloat(o.value) || 0 };
+        let orders;
+        if (st.oformMode === 'add') {
+          cleanO.id = s.id + '-o' + Date.now().toString(36);
+          orders = (s.orders || []).concat([cleanO]);
+        } else {
+          orders = (s.orders || []).map((x) => (x.id === o.id ? cleanO : x));
+        }
+        self.setState({ oform: null });
+        self.update(s.id, { orders }, st.oformMode === 'add' ? 'Order added' : 'Order updated');
+      },
+
+      /* import / export */
+      fileRef: (el) => { self._file = el; },
+      importClick: () => { if (self._file) self._file.click(); },
+      onImportFile: (e) => {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        const rd = new FileReader();
+        rd.onload = () => {
+          try {
+            const o = JSON.parse(rd.result);
+            if (o && Array.isArray(o.schools)) {
+              self.setState({ schools: o.schools });
+              self.persist(o.schools, 'Backup restored');
+            } else { alert('Not a valid backup file.'); }
+          } catch (err) { alert('Could not read that file.'); }
+        };
+        rd.readAsText(f);
+        e.target.value = '';
+      },
+      exportJson: () => {
+        const blob = new Blob([JSON.stringify({ savedAt: new Date().toISOString(), schools: st.schools }, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'school-sales-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+        a.click();
+      },
+      exportCsv: () => {
+        const cols = ['name', 'code', 'city', 'district', 'region', 'curriculum', 'grades', 'status', 'value', 'phone', 'email', 'website', 'address', 'products', 'docs', 'notes', 'updatedAt'];
+        const esc = (v) => '"' + String(v === null || v === undefined ? '' : v).replace(/"/g, '""') + '"';
+        const lines = [cols.concat(['contacts']).join(',')];
+        st.schools.forEach((r) => {
+          const contactStr = (r.contacts || []).map((c) => [c.name, c.role, c.mobile, c.email].filter(Boolean).join(' / ')).join(' | ');
+          lines.push(cols.map((c) => esc(r[c])).concat([esc(contactStr)]).join(','));
+        });
+        const blob = new Blob(['\ufeff' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'school-sales-tracker.csv';
+        a.click();
+      },
+
+      toast: st.toast
+    };
+  }
+
+  toggleSort(k) {
+    if (this.state.sortKey === k) this.setState({ sortDir: -this.state.sortDir });
+    else this.setState({ sortKey: k, sortDir: k === 'value' ? -1 : 1 });
+  }
+}
+</script>
+</body>
+</html>
