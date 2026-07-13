@@ -1,5 +1,5 @@
 {
- "savedAt": "2026-07-13T12:30:36.739Z",
+ "savedAt": "2026-07-13T12:30:47.229Z",
  "schools": [
   {
    "id": "ajool",
@@ -500,7 +500,7 @@
    "products": "1-8 Savvas (Elevate Science, MyView), Obelas & Alpha. 764 titles.",
    "docs": "Booklist (Savvas); quotation GPS000008-4 (06/07/2026)",
    "notes": "Quotation GPS000008 sent — 764 items, 174,700.53 SAR incl. VAT.",
-   "updatedAt": "2026-07-13T12:30:35.524Z",
+   "updatedAt": "2026-07-13T12:30:46.028Z",
    "orders": [
     {
      "id": "greenpeaks-o1",
@@ -508,7 +508,7 @@
      "ref": "GPS000008-5",
      "title": "G1-8 Savvas (Elevate Science, MyView), Obelas & Alpha",
      "items": "764 titles",
-     "value": 174,
+     "value": 174700.53,
      "status": "Approved – PO collected",
      "docs": "Booklist (Savvas); quotation GPS000008-4",
      "notes": "174,700.53 SAR incl. VAT.\n\nDown payment - 87,350"
