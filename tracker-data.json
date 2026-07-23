@@ -1,5 +1,5 @@
 {
- "savedAt": "2026-07-21T12:47:11.844Z",
+ "savedAt": "2026-07-23T08:46:21.644Z",
  "schools": [
   {
    "id": "ajool",
@@ -351,12 +351,12 @@
      "notes": ""
     }
    ],
-   "status": "Quotation sent",
+   "status": "Approved – PO collected",
    "value": null,
    "products": "Savvas 1-12 + Alpha Literature. Orders: Complete Coursebook (G1,3,6,8,11), MyView ELA, OBE ELA.",
    "docs": "3 order files: Complete Coursebook, MyView, OBE ELA",
    "notes": "In progress — quotation stage. Multiple order files prepared across programs.",
-   "updatedAt": null,
+   "updatedAt": "2026-07-23T08:46:20.442Z",
    "orders": [
     {
      "id": "durat-o1",
